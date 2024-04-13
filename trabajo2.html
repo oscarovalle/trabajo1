@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Tickets</title>
+    <style>
+        body {
+            background-color: black;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            color: white;
+        }
+        
+        .seccion {
+            background-color: yellow;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: black;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tabla de Tickets</h1>
+    <div class="seccion" style="margin-bottom: 10px;">
+        <button onclick="ingresarNuevaSolicitud()">Ingresar Nueva Solicitud</button>
+        <input type="date" id="filtroFecha" onchange="filtrarPorFecha()">
+    </div>
+    <table border="1" id="tablaTickets" class="seccion">
+        <thead>
+            <tr>
+                <th>ID Solicitud</th>
+                <th>Sector</th>
+                <th>Fecha Solicitud</th>
+                <th>Fecha Resolución</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a href="detalle.html?id=1">157846</a></td>
+                <td>Contabilidad</td>
+                <td>2020-10-12</td>
+                <td>2020-06-14</td> <!-- Fecha de resolución, vacío si no está resuelto -->
+                <td>Proceso</td>
+            </tr>
+            <tr>
+                <td><a href="#" id="ticket2">177452</a></td>
+                <td>Contabilidad</td>
+                <td>2020-09-11</td>
+                <td>-------</td> <!-- Fecha de resolución, si está resuelto -->
+                <td>Resuelto</td>
+            </tr>
+            <tr>
+                <td><a href="detalle.html?id=1">256485</a></td>
+                <td>Contabilidad</td>
+                <td>2019-12-05</td>
+                <td>2019-12-10</td> <!-- Fecha de resolución, vacío si no está resuelto -->
+                <td>Resuelto</td>
+            </tr>
+            <tr>
+                <td><a href="detalle.html?id=1">245678</a></td>
+                <td>Contabilidad</td>
+                <td>2020-10-12</td>
+                <td>2020-01-23</td> <!-- Fecha de resolución, vacío si no está resuelto -->
+                <td>Resuelto</td>
+            </tr>
+            <tr>
+                <td><a href="detalle.html?id=1">263281</a></td>
+                <td>Contabilidad</td>
+                <td>2020-10-12</td>
+                <td>2020-12-01</td> <!-- Fecha de resolución, vacío si no está resuelto -->
+                <td>Resuelto</td>
+            </tr>
+            <!-- Agregar más filas según sea necesario -->
+        </tbody>
+    </table>
+
+    <script>
+        // Agregar un event listener al enlace del ticket 2
+        document.getElementById('ticket2').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevenir la acción predeterminada del enlace
+            
+            // Mostrar la alerta
+            alert("Hubo algún problema, contacte con el administrador");
+
+            // Recargar la página
+            location.reload();
+        });
+        function ingresarNuevaSolicitud() {
+            // Aquí podrías agregar la lógica para redirigir a la página de ingreso de nueva solicitud
+            alert("Función para ingresar nueva solicitud");
+        }
+
+        function filtrarPorFecha() {
+            var fechaSeleccionada = document.getElementById("filtroFecha").value;
+            var tabla = document.getElementById("tablaTickets");
+            var filas = tabla.getElementsByTagName("tr");
+
+            for (var i = 0; i < filas.length; i++) {
+                var celdas = filas[i].getElementsByTagName("td");
+                if (celdas.length > 0) {
+                    var fechaSolicitud = celdas[2].innerText; // Obtiene la fecha de solicitud de la tercera celda
+                    if (fechaSolicitud !== fechaSeleccionada) {
+                        filas[i].style.display = "none"; // Oculta la fila si la fecha no coincide
+                    } else {
+                        filas[i].style.display = ""; // Muestra la fila si la fecha coincide
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
